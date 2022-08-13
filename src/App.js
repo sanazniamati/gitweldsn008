@@ -22,15 +22,12 @@ const RED_NodeDefult = {
   height: 30,
   draggable: true,
 };
-const Values = () => {
-  const [blueNode, updateblueNode] = useState(BLUE1_DEFAULTS);
-  const [redNode, updateredNode] = useState(RED_NodeDefult);
-
+const Values = ({ blueNode, redNode, updateblueNode, updateredNode }) => {
   return (
     <Group
-      onDragMove={(e) => {
-        console.log(e.target.position());
-      }}
+    // onDragMove={(e) => {
+    //   // console.log(e.target.position());
+    // }}
     >
       <Edge node1={redNode} node2={blueNode} />
       <Circle
@@ -96,12 +93,14 @@ const Edge = ({ node1, node2 }) => {
   );
 };
 export default function App() {
-  const [blobs, setBlobs] = useState([10]);
+  const [blueNode, updateblueNode] = useState(BLUE1_DEFAULTS);
+  const [redNode, updateredNode] = useState(RED_NodeDefult);
+  const [blobs, setBlobs] = useState([]);
   const handelCreateBlob = () => {
     setBlobs((prevBlobs) => [
       ...prevBlobs,
       {
-        x: (blobs.length - 1) * 150,
+        x: blobs.length * 150,
         color: Konva.Util.getRandomColor(),
       },
     ]);
@@ -113,7 +112,12 @@ export default function App() {
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
           {blobs.map((blob, i) => (
-            <Values key={i} x={blob.x} y={blob.y} />
+            <Values
+              blueNode={blueNode}
+              redNode={redNode}
+              updateblueNode={updateblueNode}
+              updateredNode={updateredNode}
+            />
           ))}
         </Layer>
       </Stage>
