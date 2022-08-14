@@ -2,7 +2,7 @@
   "name": "projectsn008",
   "version": "0.1.0",
   "private": true,
-  "description": "create blobs with click on button",
+  "description": "create shape with click on button",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
