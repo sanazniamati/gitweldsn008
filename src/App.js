@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Konva from "konva";
-import { Stage, Layer, Line, Group, Circle, Arrow, Text } from "react-konva";
+import { Stage, Layer, Group, Circle, Arrow, Text } from "react-konva";
 
 const BLUE1_DEFAULTS = {
   x: 100,
@@ -22,7 +22,13 @@ const RED_NodeDefult = {
   height: 30,
   draggable: true,
 };
-const Values = ({ blueNode, redNode, updateblueNode, updateredNode }) => {
+const Values = ({
+  blueNode,
+  redNode,
+  updateblueNode,
+  updateredNode,
+  counter,
+}) => {
   return (
     <Group
     // onDragMove={(e) => {
@@ -94,9 +100,11 @@ const Edge = ({ node1, node2 }) => {
 };
 export default function App() {
   const [blueNode, updateblueNode] = useState(BLUE1_DEFAULTS);
+  const [counter, setCounter] = useState(0);
   const [redNode, updateredNode] = useState(RED_NodeDefult);
   const [blobs, setBlobs] = useState([]);
   const handelCreateBlob = () => {
+    setCounter(counter + 1);
     setBlobs((prevBlobs) => [
       ...prevBlobs,
       {
@@ -111,12 +119,14 @@ export default function App() {
       <button onClick={handelCreateBlob}> CreateBlob</button>
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
+          <Text text={counter.toString()} fontSize={18} />
           {blobs.map((blob, i) => (
             <Values
               blueNode={blueNode}
               redNode={redNode}
               updateblueNode={updateblueNode}
               updateredNode={updateredNode}
+              counter={counter}
             />
           ))}
         </Layer>
